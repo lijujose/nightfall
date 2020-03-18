@@ -32,6 +32,7 @@ jobs:
       - name: Increase swap memory
         run: |
           sudo swapoff -a
+          sudo rm -dr /mnt/swapfile || true
           sudo fallocate -l 12G /mnt/swapfile
           sudo mkswap /mnt/swapfile
           sudo swapon /mnt/swapfile
