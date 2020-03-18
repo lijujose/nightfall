@@ -11,9 +11,9 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Delete gm17 folder
-        run: sudo rm -dr zkp/code/gm17/
+        run: sudo rm -dr zkp/code/gm17/ || true
       - name: Delete zkp/build folder
-        run: sudo rm -dr zkp/build/
+        run: sudo rm -dr zkp/build/ || true
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
