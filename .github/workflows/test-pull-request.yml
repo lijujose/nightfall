@@ -21,6 +21,7 @@ jobs:
   zkp-unit-test-sha:
     name: ZKP microservice unit test (HASH_TYPE = sha)
     runs-on: self-hosted
+    needs: eslint-test
     steps:
       - name: Pull docker image
         run: docker pull zokrates/zokrates:0.5.1
@@ -50,6 +51,7 @@ jobs:
   integration-test-sha:
     name: Run integration test (HASH_TYPE = sha)
     runs-on: ubuntu-18.04
+    needs: zkp-unit-test-sha
     steps:
       - name: Remove containers
         run: |
@@ -67,6 +69,7 @@ jobs:
   zkp-unit-test-mimc:
     name: ZKP microservice unit test (HASH_TYPE = mimc)
     runs-on: ubuntu-18.04
+    needs: integration-test-sha
     steps:
       - name: Rename mimc docker-compose yml file
         run: mv docker-compose.override.mimc.yml docker-compose.override.yml
@@ -88,6 +91,7 @@ jobs:
   integration-test-mimc:
     name: Run integration test (HASH_TYPE = mimc)
     runs-on: ubuntu-18.04
+    needs: zkp-unit-test-mimc
     steps:
       - name: Remove containers
         run: |
