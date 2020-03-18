@@ -10,12 +10,13 @@ jobs:
     name: Run eslint check
     runs-on: self-hosted
     steps:
-      - name: Delete gm17 folder
-        run: sudo rm -dr zkp/code/gm17/ || true
-      - name: Delete zkp/build folder
-        run: sudo rm -dr zkp/build/ || true
-      - name: Delete offchain/build folder
-        run: sudo rm -dr offchain/build/ || true
+      - name: Reset system
+        run: |
+          docker stop $(docker ps -aq)
+          docker rm $(docker ps -aq)
+          sudo rm -dr zkp/code/gm17/ || true
+          sudo rm -dr zkp/build/ || true
+          sudo rm -dr offchain/build/ || true
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
