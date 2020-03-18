@@ -58,10 +58,6 @@ jobs:
     runs-on: ubuntu-18.04
     needs: zkp-unit-test-sha
     steps:
-      - name: Remove containers
-        run: |
-          docker stop $(docker ps -aq)
-          docker rm $(docker ps -aq)
       - name: Run integration test
         run: ./nightfall-test
       - name: If integration test failed, upload logs files as artifacts
@@ -98,10 +94,6 @@ jobs:
     runs-on: ubuntu-18.04
     needs: zkp-unit-test-mimc
     steps:
-      - name: Remove containers
-        run: |
-          docker stop $(docker ps -aq)
-          docker rm $(docker ps -aq)
       - name: Run integration test
         run: ./nightfall-test
       - name: If integration test failed, upload logs files as artifacts
