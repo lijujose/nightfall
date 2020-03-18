@@ -14,6 +14,9 @@ jobs:
         run: |
           docker stop $(docker ps -aq)
           docker rm $(docker ps -aq)
+          sudo rm -dr zkp/code/gm17/ || true
+          sudo rm -dr zkp/build/ || true
+          sudo rm -dr offchain/build/ || true
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
