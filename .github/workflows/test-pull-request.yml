@@ -20,7 +20,7 @@ jobs:
 
   zkp-unit-test-sha:
     name: ZKP microservice unit test (HASH_TYPE = sha)
-    runs-on: ubuntu-18.04
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -28,6 +28,7 @@ jobs:
           node-version: '10.15.3'
       - name: Pull docker image
         run: |
+          ls
           docker rmi $(docker images -aq)
           docker pull zokrates/zokrates:0.5.1
       - name: Increase swap memory
