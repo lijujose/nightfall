@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Reset system
         run: |
-          docker stop $(docker ps -aq)
-          docker rm $(docker ps -aq)
+          docker stop $(docker ps -aq) || true
+          docker rm $(docker ps -aq) || true
           sudo rm -dr zkp/code/gm17/ || true
           sudo rm -dr zkp/build/ || true
           sudo rm -dr offchain/build/ || true
