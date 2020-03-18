@@ -10,6 +10,8 @@ jobs:
     name: Run eslint check
     runs-on: self-hosted
     steps:
+      - name: Delete gm17 folder
+        run: sudo rm -dr zkp/code/gm17/
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
