@@ -35,7 +35,9 @@ jobs:
           sudo mkswap /mnt/swapfile
           sudo swapon /mnt/swapfile
       - name: Build docker images
-        run: docker-compose build
+        run: |
+          pwd
+          docker-compose build
       - name: Generate the keys and constraint files for Zero Knowledge Proofs
         run: |
           chmod -R 777 zkp/code/
