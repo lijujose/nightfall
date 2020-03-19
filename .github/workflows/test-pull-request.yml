@@ -14,6 +14,7 @@ jobs:
         run: |
           docker stop $(docker ps -aq) || true
           docker rm $(docker ps -aq) || true
+          docker volume rm $(docker volume ls -q) || true
           sudo rm -dr zkp/code/gm17/ || true
           sudo rm -dr zkp/build/ || true
           sudo rm -dr offchain/build/ || true
@@ -45,17 +46,13 @@ jobs:
           sudo mkswap /mnt/swapfile
           sudo swapon /mnt/swapfile
       - name: Build docker images
-        run: 
-          node -v
-          docker-compose build
+        run: docker-compose build
       - name: Generate the keys and constraint files for Zero Knowledge Proofs
         run: |
           chmod -R 777 zkp/code/
           npm run setupAll
       - name: Remove containers
-        run: |
-          docker-compose down -v
-          docker rm $(docker ps -aq)
+        run: docker-compose down -v
       - name: Deploy zkp contracts
         run: |
           docker-compose run --rm truffle-zkp compile --all
@@ -70,6 +67,9 @@ jobs:
     runs-on: self-hosted
     needs: zkp-unit-test-sha
     steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.15.3'
       - name: Run integration test
         run: ./nightfall-test
       - name: If integration test failed, upload logs files as artifacts
@@ -84,6 +84,9 @@ jobs:
     runs-on: self-hosted
     needs: integration-test-sha
     steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.15.3'
       - name: Rename mimc docker-compose yml file
         run: mv docker-compose.override.mimc.yml docker-compose.override.yml
       - name: Build docker images
@@ -106,6 +109,9 @@ jobs:
     runs-on: self-hosted
     needs: zkp-unit-test-mimc
     steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.15.3'
       - name: Run integration test
         run: ./nightfall-test
       - name: If integration test failed, upload logs files as artifacts
