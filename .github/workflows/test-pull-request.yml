@@ -21,9 +21,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.15.3'
-      - run: |
-          node -v
-          npm ci
+      - run: npm ci
       - name: Run check for ESLint errors
         run: npm run lint
 
@@ -32,6 +30,9 @@ jobs:
     runs-on: self-hosted
     needs: eslint-test
     steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.15.3'
       - name: Pull docker image
         run: |
           docker pull ajmay/truffle:5.0.9
@@ -44,17 +45,17 @@ jobs:
           sudo mkswap /mnt/swapfile
           sudo swapon /mnt/swapfile
       - name: Build docker images
-        run: docker-compose build
+        run: 
+          node -v
+          docker-compose build
       - name: Generate the keys and constraint files for Zero Knowledge Proofs
         run: |
           chmod -R 777 zkp/code/
           npm run setupAll
       - name: Remove containers
         run: |
-          docker stop $(docker ps -aq)
+          docker-compose down -v
           docker rm $(docker ps -aq)
-          docker ps -a
-          node -v
       - name: Deploy zkp contracts
         run: |
           docker-compose run --rm truffle-zkp compile --all
