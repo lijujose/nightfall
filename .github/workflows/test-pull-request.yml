@@ -21,7 +21,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.15.3'
-      - run: npm ci
+      - run: |
+          node -v
+          npm ci
       - name: Run check for ESLint errors
         run: npm run lint
 
