@@ -27,7 +27,7 @@ jobs:
         run: npm run lint
 
   zkp-unit-test-sha:
-    name: ZKP microservice unit test (HASH_TYPE = sha)
+    name: [SHA] - ZKP unit test
     runs-on: self-hosted
     needs: eslint-test
     steps:
@@ -63,7 +63,7 @@ jobs:
           docker-compose run --rm zkp npm test
 
   integration-test-sha:
-    name: Run integration test (HASH_TYPE = sha)
+    name: [SHA] - Integration test
     runs-on: self-hosted
     needs: zkp-unit-test-sha
     steps:
@@ -80,7 +80,7 @@ jobs:
           path: nightfall_test.log
 
   zkp-unit-test-mimc:
-    name: ZKP microservice unit test (HASH_TYPE = mimc)
+    name: [MIMC] - ZKP unit test
     runs-on: self-hosted
     needs: integration-test-sha
     steps:
@@ -105,7 +105,7 @@ jobs:
         run: docker-compose run --rm zkp npm test
 
   integration-test-mimc:
-    name: Run integration test (HASH_TYPE = mimc)
+    name: [MIMC] - Integration test
     runs-on: self-hosted
     needs: zkp-unit-test-mimc
     steps:
