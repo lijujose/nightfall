@@ -94,9 +94,7 @@ jobs:
       - name: Generate the keys and constraint files for Zero Knowledge Proofs
         run: npm run setupAll-mimc
       - name: Remove containers
-        run: |
-          docker stop $(docker ps -aq)
-          docker rm $(docker ps -aq)
+        run: docker-compose down -v
       - name: Deploy zkp contracts
         run: |
           docker-compose run --rm truffle-zkp compile --all
