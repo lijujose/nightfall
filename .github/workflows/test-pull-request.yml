@@ -58,9 +58,7 @@ jobs:
           docker-compose run --rm truffle-zkp compile --all
           docker-compose run --rm truffle-zkp migrate --reset --network=default
       - name: Run zkp unit tests
-        run: |
-          docker ps -a
-          docker-compose run --rm zkp npm test
+        run: docker-compose run --rm zkp npm test
 
   integration-test-sha:
     name: (SHA) Integration test
@@ -70,6 +68,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.15.3'
+      - name: list containers
+        run: |
+          docker-compose ps
+          docker ps -a
       - name: Run integration test
         run: ./nightfall-test
       - name: If integration test failed, upload logs files as artifacts
