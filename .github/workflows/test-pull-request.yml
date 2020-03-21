@@ -68,10 +68,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.15.3'
-      - name: list containers
-        run: |
-          docker-compose ps
-          docker ps -a
+      - name: Remove containers
+        run: docker-compose down -v
       - name: Run integration test
         run: ./nightfall-test
       - name: If integration test failed, upload logs files as artifacts
@@ -112,6 +110,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.15.3'
+      - name: Remove containers
+        run: docker-compose down -v
       - name: Run integration test
         run: ./nightfall-test
       - name: If integration test failed, upload logs files as artifacts
