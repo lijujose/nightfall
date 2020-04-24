@@ -203,11 +203,6 @@ jobs:
           npm run setupAll-rc
       - name: Remove containers
         run: docker-compose down -v
-      - name: Move ft-batch-transfer to make space
-        run: |
-          sudo mv zkp/code/gm17/ft-batch-transfer /dev/ft-batch-transfer
-          sudo ln -s /dev/ft-batch-transfer zkp/code/gm17/ft-batch-transfer
-          df -h
       - name: Run integration test
         run: ./nightfall-test compliance
       - name: If integration test failed, upload logs files as artifacts
