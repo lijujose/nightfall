@@ -124,7 +124,7 @@ jobs:
   integration-test-compliance:
     name: (compliance) Integration test
     runs-on: self-hosted
-    needs: zkp-unit-test-mimc
+    needs: integration-test-mimc
     steps:
       - uses: actions/setup-node@v1
         with:
